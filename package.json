@@ -1,7 +1,7 @@
 {
-  "name": "@cobuildlab/create-nodejs-app",
-  "version": "1.0.0",
-  "description": "Starter for a npm package",
+  "name": "@cobuildlab/error-handling",
+  "version": "0.0.1",
+  "description": "Try Catch alternative",
   "main": "./src/index.ts",
   "scripts": {
     "build": "tsc",
@@ -10,7 +10,7 @@
     "prepare": "npx husky install",
     "test": "jest"
   },
-  "author": "Gressia",
+  "author": "N/A",
   "license": "ISC",
   "dependencies": {
     "eslint": "^8.8.0",
