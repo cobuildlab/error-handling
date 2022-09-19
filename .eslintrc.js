@@ -31,11 +31,10 @@ module.exports = {
     'jsdoc/implements-on-classes': 2, // Recommended
     'jsdoc/match-description': 2,
     'jsdoc/newline-after-description': 2, // Recommended
-    'jsdoc/no-types': 2,
     'jsdoc/no-undefined-types': 2, // Recommended
     'jsdoc/require-description': 2,
     'jsdoc/require-example': 2,
-    'jsdoc/require-jsdoc': 2, // Recommended
+    'jsdoc/require-jsdoc': 0, // Recommended
     'jsdoc/require-param': 2, // Recommended
     'jsdoc/require-param-description': 2, // Recommended
     'jsdoc/require-param-name': 2, // Recommended
