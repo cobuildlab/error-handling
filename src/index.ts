@@ -1,8 +1,8 @@
 async function tryCatch<T>(
   promise: Promise<T>,
   throwIfError = false,
-  finallyFunction?: () => {},
-  errorFunction?: () => {},
+  finallyFunction?: (() => void) | undefined,
+  errorFunction?: (() => void) | undefined,
 ): Promise<[T, undefined] | [undefined, unknown]> {
   if (typeof promise !== 'object') {
     return [undefined, new Error("There it's not a promise")];
@@ -28,13 +28,13 @@ async function tryCatch<T>(
   }
 }
 
-async function tryCatchSync<T, U extends any[]>(
+async function tryCatchSync<T, U extends any>(
   // eslint-disable-next-line no-unused-vars
   f: (params: U) => T,
   params: U,
   throwIfError = false,
-  finallyFunction?: () => {} | void,
-  errorFunction?: () => {} | undefined,
+  finallyFunction?: (() => void) | undefined,
+  errorFunction?: (() => void) | undefined,
 ): Promise<[T, undefined] | [undefined, unknown]> {
   if (typeof f !== 'function') {
     return [undefined, new Error("There it's not a function")]; // Throw specific error
