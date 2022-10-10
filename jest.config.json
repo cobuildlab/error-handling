@@ -1,0 +1,16 @@
+{
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx"
+  ],
+  "testPathIgnorePatterns": [
+    "<rootDir>/(build|node_modules)/"
+  ],
+  "testRegex": [
+    ".test.ts$",
+    ".test.tsx$"
+  ],
+  "setupFilesAfterEnv": ["jest-extended/all"]
+}
