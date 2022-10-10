@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "start": "ts-node ./src/index.ts",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "prepare": "npx husky install",
     "test": "jest"
