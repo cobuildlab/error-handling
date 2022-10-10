@@ -1,48 +1,63 @@
+async function tryCatch<T>(
+  promise: Promise<T>,
+  throwIfError = false,
+  finallyFunction?: () => {},
+  errorFunction?: () => {},
+): Promise<[T, undefined] | [undefined, unknown]> {
+  if (typeof promise !== 'object') {
+    return [undefined, new Error("There it's not a promise")];
+  }
 
-/**
- * @param {Function | Promise} promise - Promise function to resolve.
- * @returns {Promise<[Error, undefined]|[null, object]>} Promise - Promise function to resolve.
- */
-export async function tryCatch<T>(
-  promise: (() => Promise<T>) | Promise<T> | (() => T),
-  finallyFunction:()=>{} = null, throwIfError = false,
-): Promise<[T, undefined] | [undefined, Error]> {
-  if(typeof promise !== "function") 
-    return [undefined, new Error("")]; // Throw specific error
-  
-  return promise
-    .then((result) => {
-      return [result, null];
-    })
-    .catch((error) => {
-      if (throwIfError === true) {
-        throw error;
+  try {
+    const result = await promise;
+    return [result, undefined];
+  } catch (error) {
+    if (errorFunction && typeof errorFunction === 'function') {
+      errorFunction();
+    }
+    if (throwIfError) {
+      throw error;
+    }
+    return [undefined, error];
+  } finally {
+    if (finallyFunction !== null) {
+      if (typeof finallyFunction === 'function') {
+        finallyFunction();
       }
-      return [null, error];
-    })
-    .finally(() => {
-      if (finallyFunction !== null) {
-        if (typeof finallyFunction === 'function') {
-          finallyFunction();
-        }
-      }
-    });
-};
+    }
+  }
+}
 
+async function tryCatchSync<T, U extends any[]>(
+  // eslint-disable-next-line no-unused-vars
+  f: (params: U) => T,
+  params: U,
+  throwIfError = false,
+  finallyFunction?: () => {} | void,
+  errorFunction?: () => {} | undefined,
+): Promise<[T, undefined] | [undefined, unknown]> {
+  if (typeof f !== 'function') {
+    return [undefined, new Error("There it's not a function")]; // Throw specific error
+  }
 
-/**
- * @param {Function | Promise} promise - Promise function to resolve.
- * @returns {Promise<[Error, undefined]|[null, object]>} Promise - Promise function to resolve.
- */
-export async function tryCatchSync<T>(f: () => T, ...params, finallyFunction:()=>{} = null, throwIfError = false,
-): [T, undefined] | [undefined, Error]> {
-  if(typeof f !== "function") 
-    return [undefined, new Error("")]; // Throw specific error
-  
- try {
+  try {
     const result = f(params);
     return [result, undefined];
   } catch (error: unknown) {
-    return [undefined, error as Error];
+    if (errorFunction && typeof errorFunction === 'function') {
+      errorFunction();
+    }
+    if (throwIfError) {
+      throw error;
+    }
+    return [undefined, error];
+  } finally {
+    if (finallyFunction !== null) {
+      if (typeof finallyFunction === 'function') {
+        finallyFunction();
+      }
+    }
   }
-};
+}
+
+export { tryCatch, tryCatchSync };
