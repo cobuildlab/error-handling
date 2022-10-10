@@ -1,15 +1,17 @@
 {
   "name": "@cobuildlab/error-handling",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Try Catch alternative",
-  "main": "./src/index.ts",
+  "main": "lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": ["lib/**/*"],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "ts-node ./src/index.ts",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "prepare": "npx husky install",
-    "test": "jest"
+    "test": "jest --config jest.config.json"
   },
   "author": "N/A",
   "license": "ISC",
@@ -25,22 +27,6 @@
       "prettier --write",
       "eslint --fix"
     ]
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/(build|node_modules)/"
-    ],
-    "testRegex": [
-      ".test.ts$",
-      ".test.tsx$"
-    ],
-    "setupFilesAfterEnv": ["jest-extended/all"]
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
